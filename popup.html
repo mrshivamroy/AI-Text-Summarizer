@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AI Summary</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        min-width: 380px; /* Slightly smaller min width */
+        min-height: 300px; /* Slightly smaller min height */
+        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        background: rgba(255,255,255,0.85);
+        border-radius: 18px;
+        box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0.13);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        padding: 24px 18px 18px 18px;
+        width: 100%;
+        max-width: 370px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border: 1px solid rgba(255,255,255,0.18);
+      }
+
+      h2 {
+        color: #2563eb;
+        margin-bottom: 0;
+        font-size: 1.18rem; /* Smaller font */
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-align: center;
+        text-shadow: 0 1px 4px rgba(37,99,235,0.06);
+      }
+
+      .options {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+      }
+
+      select#summary-type {
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: none;
+        background: #e0e7ef;
+        font-size: 0.92rem;
+        color: #222;
+        outline: none;
+        box-shadow: 0 1px 4px rgba(60,120,200,0.07);
+        transition: box-shadow 0.2s;
+        font-weight: 500;
+      }
+      select#summary-type:focus {
+        box-shadow: 0 0 0 2px #2563eb55;
+      }
+
+      button {
+        padding: 6px 14px;
+        background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.92rem;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+        outline: none;
+      }
+      button:hover, button:focus {
+        background: linear-gradient(90deg, #1d4ed8 60%, #3b82f6 100%);
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 4px 16px rgba(37,99,235,0.13);
+      }
+      #copy-btn {
+        background: linear-gradient(90deg, #22c55e 60%, #4ade80 100%);
+        color: #fff;
+      }
+      #copy-btn:hover, #copy-btn:focus {
+        background: linear-gradient(90deg, #16a34a 60%, #22d3ee 100%);
+      }
+
+      #result {
+        margin-top: 0;
+        padding: 14px 10px;
+        border-radius: 10px;
+        min-height: 80px;
+        max-height: 200px;
+        overflow-y: auto;
+        background: rgba(248,250,252,0.95);
+        white-space: pre-wrap;
+        line-height: 1.5;
+        font-size: 0.95rem;
+        color: #1e293b;
+        box-shadow: 0 1px 8px rgba(60,120,200,0.06);
+        border: 1px solid #e0e7ef;
+        transition: box-shadow 0.2s;
+      }
+
+      #result ul {
+        padding-left: 18px;
+      }
+      #result li {
+        margin-bottom: 6px;
+      }
+
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+      }
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #2563eb;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg);}
+        100% { transform: rotate(360deg);}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card"><!-- Main card container -->
+      <h2>AI Summary</h2><!-- Title of the popup -->
+      <div class="options"><!-- Options row for select and buttons -->
+        <select id="summary-type"><!-- Dropdown for summary type -->
+          <option value="brief">Brief Summary</option><!-- Option: Brief -->
+          <option value="detailed">Detailed Summary</option><!-- Option: Detailed -->
+          <option value="bullets">Bullet Points</option><!-- Option: Bullets -->
+        </select>
+        <button id="summarize">Summarize</button><!-- Button to start summarizing -->
+        <button id="copy-btn">Copy</button><!-- Button to copy summary -->
+      </div>
+      <div id="result"><!-- Area to show the summary result -->
+        Select a summary type and click 'Summarize' to generate a summary.
+      </div>
+    </div>
+    <script src="config.js"></script><!-- Loads config (API keys etc) -->
+    <script src="popup.js"></script><!-- Loads popup logic --
