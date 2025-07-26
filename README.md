@@ -58,6 +58,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Author
 
 Shivam Roy - [mrshivamroy](https://github.com/mrshivamroy)
-
-## Acknowledgments
-- Icon credits: [if applicable]
